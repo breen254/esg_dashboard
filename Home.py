@@ -1,60 +1,199 @@
 import streamlit as st
 
-# Set page configuration
-st.set_page_config(page_title="🌐 ESG Dashboard", layout="wide")
+# Page configuration
+st.set_page_config(page_title="🌐 AI-Driven ESG Dashboard", layout="wide")
 
-# Sidebar theme toggle
-mode = st.sidebar.radio("Theme", ["Dark", "Light"])
-dark_mode = mode == "Dark"
+# Custom styles and fonts
+st.markdown("""
+<style>
+  /* Hide sidebar and hamburger menu */
+  [data-testid="stSidebar"], [data-testid="collapsedControl"] {
+      display: none !important;
+  }
 
-# Apply custom styles based on theme
-st.markdown(f"""
-    <style>
-    body {{
-        background-color: {'#0e1117' if dark_mode else '#ffffff'};
-        color: {'#ffffff' if dark_mode else '#000000'};
-    }}
-    .fade-in {{
-        animation: fadeIn ease 2s;
-    }}
-    @keyframes fadeIn {{
-        0% {{opacity:0;}}
-        100% {{opacity:1;}}
-    }}
-    a.dashboard-link {{
+  /* Fade-in animation */
+  .fade-in {
+      animation: fadeIn ease 1.8s forwards;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  @keyframes fadeIn {
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+
+  /* Futuristic dashboard links */
+    .dashboard-link {
         display: inline-block;
         padding: 1rem 2rem;
         margin: 1rem 1rem 0 0;
         border-radius: 12px;
-        background-color: {'#1f77b4' if dark_mode else '#e0f7fa'};
-        color: {'#fff' if dark_mode else '#000'};
+        color: #000;
         font-weight: bold;
         text-decoration: none;
-        transition: transform 0.3s ease, background-color 0.3s ease;
-    }}
-    a.dashboard-link:hover {{
-        transform: scale(1.05);
-        background-color: {'#3399ff' if dark_mode else '#b2ebf2'};
-    }}
-    </style>
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 0.5px;
+        transition: 
+            transform 0.5s ease, 
+            background 0.3s ease, 
+            box-shadow 0.5s ease, 
+            color 0.5s ease;
+        animation: glowFadeIn 1s ease forwards;
+        box-shadow: 0 0 8px rgba(0, 234, 255, 0.3);
+    }
+    
+    .dashboard-link:hover {
+        transform: scale(1.07);
+        background: linear-gradient(45deg, #00eaff, #0066ff);
+        color: #fff;
+        box-shadow: 0 0 16px rgba(0, 234, 255, 0.6);
+        text-decoration: none;
+    }
+    
+    /* Optional: subtle fade-in animation */
+    @keyframes glowFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    
+    .link-1 { animation-delay: 0.3s; }
+    .link-2 { animation-delay: 0.6s; }
+    .link-3 { animation-delay: 0.9s; }
+
+    
+/* Header styles */
+.header-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #008cff;
+    text-shadow:
+      0 0 1px #00eaff,
+      0 0 1.5px #00eaffaa,
+      0 0 2px #00eaffcc;
+    letter-spacing: 2px;
+    font-size: 2.8rem;
+    margin: 0.5rem 0;
+}
+
+.header-subtitle {
+    font-family: 'Roboto Mono', monospace;
+    color: #88ccee;
+    font-weight: 50;
+    font-size: 1.2rem;
+    margin-top: -12px;
+    letter-spacing: 1.1px;
+}
+
+
+  /* Footer */
+  footer {
+      font-family: 'Roboto Mono', monospace;
+      color: #666;
+      font-size: 0.9rem;
+      padding: 1rem 0;
+      text-align: center;
+      border-top: 1px solid #222;
+      margin-top: 3rem;
+  }
+
+  /* Responsive styles */
+@media screen and (max-width: 1024px) {
+    .dashboard-link {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
+        margin: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header-title {
+        font-size: 6vw;
+        letter-spacing: 1px;
+    }
+
+    .header-subtitle {
+        font-size: 3.5vw;
+        margin-top: -8px;
+    }
+
+    .dashboard-link {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+
+    div[style*="margin-top: 3rem"] {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .header-title {
+        font-size: 7vw;
+    }
+
+    .header-subtitle {
+        font-size: 3vw;
+    }
+
+    footer {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+}
+
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono&display=swap" rel="stylesheet">
 """, unsafe_allow_html=True)
 
-# Animated header
+# Header
 st.markdown("""
-<div class='fade-in'>
-    <h1 style='color:#0ff; text-shadow:0 0 2px #0ff;'>🌍 Welcome to ESG Forecast Dashboard</h1>
-    <p style='color:#aaa;'>Navigate between AI-powered forecasting tools and data trends.</p>
+<div style='max-width: 1280px; margin: 0 auto;' class='fade-in'>
+    <h1 class='header-title'>🌍 ESG Forecast Dashboard</h1>
+    <p class='header-subtitle'>Harnessing advanced AI & real-time data to illuminate sustainable futures.</p>
 </div>
 """, unsafe_allow_html=True)
 
-# Navigation links
+# Interactive Introduction
+with st.expander("🤖 What makes this dashboard intelligent?", expanded=False):
+    st.markdown("""
+    <div  style='font-family:"Roboto Mono", monospace; color:#0099cc; max-width: 1280px; margin: 0 auto;'>
+      <ul>
+        <li>🔎 Decode complex environmental, social, and governance datasets</li>
+        <li>📈 Reveal emerging trends before they surface</li>
+        <li>🔮 Forecast ESG impact with unparalleled accuracy</li>
+        <li>🌐 Empower stakeholders with actionable insights and scenario simulations</li>
+      </ul>
+      <p style='font-style: italic; color:#00eaff;'>“Transforming data into foresight — the AI way.”</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+# Futuristic call-to-action buttons with glow and scaling
 st.markdown("""
-<div class='fade-in'>
-    <a href='/Trends' target='_self' class='dashboard-link'>📊 ESG Trends</a>
-    <a href='/Forecast' target='_self' class='dashboard-link'>🔮 ESG Forecast</a>
+<div style="margin-top: 3rem; color:#00eaff; max-width: 1280px; margin: 0 auto;">
+  <a href="/Trends" target="_self" class="dashboard-link link-1">📊 Explore Trends</a>
+  <a href="/Forecast" target="_self" class="dashboard-link link-2">🔮 Run Forecasts</a>
+  <a href="/Insights" target="_self" class="dashboard-link link-3">🧠 Generate Insights</a>
 </div>
 """, unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
-st.markdown("<h4>🚀 Built by Bkn</h4>", unsafe_allow_html=True)
+st.markdown("""
+<footer>
+  🤖 Built with AI innovation by <strong>Bkn</strong> | Powered by Streamlit & advanced ML models
+</footer>
+""", unsafe_allow_html=True)
