@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Page configuration
-st.set_page_config(page_title="🌐 AI-Driven ESG Dashboard", layout="wide")
+st.set_page_config(page_title="🌐 ESG Dashboard", layout="wide")
 
 # Custom styles and fonts
 st.markdown("""
